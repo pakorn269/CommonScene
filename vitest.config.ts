@@ -1,6 +1,26 @@
+import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@commonscene/catalog': fileURLToPath(
+        new URL('./packages/catalog/src/index.ts', import.meta.url),
+      ),
+      '@commonscene/consensus': fileURLToPath(
+        new URL('./packages/consensus/src/index.ts', import.meta.url),
+      ),
+      '@commonscene/contracts': fileURLToPath(
+        new URL('./packages/contracts/src/index.ts', import.meta.url),
+      ),
+      '@commonscene/test-fixtures': fileURLToPath(
+        new URL('./packages/test-fixtures/src/index.ts', import.meta.url),
+      ),
+      '@commonscene/ui-tokens': fileURLToPath(
+        new URL('./packages/ui-tokens/src/index.ts', import.meta.url),
+      ),
+    },
+  },
   test: {
     // Find tests in all workspace packages
     include: [
