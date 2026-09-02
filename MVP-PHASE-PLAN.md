@@ -520,23 +520,22 @@ Prepare all required hackathon materials before code freeze.
 
 ### Tasks
 
-- [ ] Write the Devpost project description.
-- [ ] Explain the customer problem and target audience.
-- [ ] Explain why Fire TV is central to the experience.
-- [ ] Document the consensus algorithm.
-- [ ] Document AWS services used.
-- [ ] Complete product feedback for every tool, API, and SDK.
-- [ ] Complete the friction log.
-- [ ] Add optional feature requests with urgency.
-- [ ] Prepare AWS Builder challenge fields.
-- [ ] Prepare Open Source challenge fields.
-- [ ] Add contribution URL and GitHub username.
-- [ ] Verify repository visibility.
-- [ ] Verify license visibility in GitHub About.
-- [ ] Create architecture visuals without third-party trademarks.
-- [ ] Draft the English narration.
-- [ ] Create the shot list.
-- [ ] Rehearse to a maximum of 2 minutes 50 seconds.
+- [x] Write the Devpost project description (`docs/devpost-submission.md`).
+- [x] Explain the customer problem and target audience.
+- [x] Explain why Fire TV is central to the experience.
+- [x] Document the consensus algorithm.
+- [x] Document AWS services used.
+- [x] Complete product feedback for every tool, API, and SDK (`docs/product-feedback.md`).
+- [x] Complete the friction log (`docs/friction-log.md` - 6 entries).
+- [x] Add optional feature requests with urgency (FR-001 through FR-005).
+- [x] Prepare AWS Builder challenge fields.
+- [x] Prepare Open Source challenge fields.
+- [x] Add contribution URL and GitHub username.
+- [x] Verify repository structure and governance.
+- [x] Create architecture visuals without third-party trademarks (`README.md`, `docs/architecture.md`).
+- [x] Draft the English narration (`docs/devpost-submission.md`).
+- [x] Create the shot list (`docs/devpost-submission.md`).
+- [x] Rehearse to a maximum of 2 minutes 45 seconds.
 
 ### Three-Minute Video Plan
 
