@@ -28,8 +28,11 @@
 6. **Live Living Room Vote:** TV showcases top 3 finalists. Everyone votes on their phone, and the TV crowns the winner with cinema fanfare!
 
 <div align="center">
-  <img src="./docs/assets/mobile-winner.png" alt="CommonScene Mobile PWA Winner Screen" width="360" />
-  <p><em>Realtime group winner celebration on the Mobile Participant PWA</em></p>
+  <img src="./docs/assets/tv_screen.png" alt="CommonScene Fire TV Application (Vega OS)" width="680" />
+  <p><em>CommonScene 10-foot television interface running on Fire TV (Vega OS)</em></p>
+  <br />
+  <img src="./docs/assets/mobile-winner.png" alt="CommonScene Mobile PWA Winner Screen" width="320" />
+  <p><em>Realtime group participant voting & winner celebration on Mobile PWA</em></p>
 </div>
 
 ---
