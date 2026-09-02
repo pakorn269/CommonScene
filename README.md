@@ -10,7 +10,7 @@
   [![Platform](https://img.shields.io/badge/Platform-Fire%20TV%20(Vega%20OS)-orange.svg)](https://developer.amazon.com/fire-tv)
   [![AI](https://img.shields.io/badge/AI-Amazon%20Bedrock-purple.svg)](https://aws.amazon.com/bedrock/)
   [![IaC](https://img.shields.io/badge/IaC-AWS%20CDK%20v2-yellow.svg)](https://aws.amazon.com/cdk/)
-  [![Demo Video](https://img.shields.io/badge/Demo%20Video-1080p%20MP4-red.svg)](docs/assets/CommonScene_Demo_Video_1080p.mp4)
+  [![Demo Video](https://img.shields.io/badge/Demo%20Video-YouTube-red.svg?logo=youtube)](https://youtu.be/8_Ttd3JLErE)
 </div>
 
 ---

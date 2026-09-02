@@ -9,6 +9,8 @@
 ## 🎬 Project Title & Tagline
 - **Title:** CommonScene
 - **Tagline:** A Fire TV-first group movie recommendation engine that turns household movie-night paralysis into instant, fair consensus.
+- **Demo Video:** [https://youtu.be/8_Ttd3JLErE](https://youtu.be/8_Ttd3JLErE)
+- **GitHub Repo:** [https://github.com/pakorn269/commonscene](https://github.com/pakorn269/commonscene)
 
 ---
 
