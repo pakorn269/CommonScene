@@ -5,7 +5,7 @@
 
   <p><em>Built for the <strong>Build, Ship, Shape: Amazon Developer Hackathon 2026</strong></em></p>
 
-  [![CI](https://github.com/pakorn269/commonscene/actions/workflows/ci.yml/badge.svg)](https://github.com/pakorn269/commonscene/actions/workflows/ci.yml)
+  [![CI](https://github.com/pakorn269/CommonScene/actions/workflows/ci.yml/badge.svg)](https://github.com/pakorn269/CommonScene/actions/workflows/ci.yml)
   [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
   [![Platform](https://img.shields.io/badge/Platform-Fire%20TV%20(Vega%20OS)-orange.svg)](https://developer.amazon.com/fire-tv)
   [![AI](https://img.shields.io/badge/AI-Amazon%20Bedrock-purple.svg)](https://aws.amazon.com/bedrock/)
