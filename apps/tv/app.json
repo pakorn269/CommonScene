@@ -1,0 +1,8 @@
+{
+    "name": "CommonScene",
+    "displayName": "CommonScene",
+    "appId": "com.commonscene.tv",
+    "version": "0.1.0",
+    "versionCode": 1,
+    "description": "Fire TV-first group movie recommendation experience"
+}

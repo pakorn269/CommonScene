@@ -1,0 +1,42 @@
+{
+    "name": "@commonscene/tv",
+    "version": "0.1.0",
+    "private": true,
+    "description": "CommonScene TV application — React Native for Vega OS (Fire TV)",
+    "license": "Apache-2.0",
+    "scripts": {
+        "start": "react-native start --reset-cache",
+        "build": "tsc --noEmit",
+        "build:vega": "react-native build-vega --build-type Release",
+        "build:debug": "react-native build-vega --build-type Debug",
+        "build:release": "react-native build-vega --build-type Release",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint src --ext .ts,.tsx",
+        "clean": "rimraf dist build .metro-cache"
+    },
+    "dependencies": {
+        "@amazon-devices/react-native-kepler": "~4.0.0",
+        "@commonscene/contracts": "*",
+        "@commonscene/ui-tokens": "*",
+        "react": "19.2.0",
+        "react-native": "0.83.0"
+    },
+    "devDependencies": {
+        "@amazon-devices/kepler-cli-platform": "^0",
+        "@react-native-community/cli": "20.0.0",
+        "@react-native/community-cli-plugin": "0.83.0",
+        "@react-native/babel-preset": "0.83.0",
+        "@react-native/metro-config": "0.83.0",
+        "@types/react": "^19.2.0",
+        "rimraf": "^6.0.1",
+        "typescript": "^5.5.4"
+    },
+    "engines": {
+        "node": ">=20.0.0"
+    },
+    "kepler": {
+        "projectType": "application",
+        "appName": "CommonScene",
+        "targets": ["tv"]
+    }
+}
