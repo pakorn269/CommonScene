@@ -9,20 +9,22 @@ Everything you need for the YouTube upload and Devpost submission for the **Buil
 ## 📁 Files to Upload
 
 - **Video File:** [`docs/assets/CommonScene_Demo_Video_1080p.mp4`](file:///c:/VSCODE/CommonScene/docs/assets/CommonScene_Demo_Video_1080p.mp4)  
-  *(1080p Full HD, 1m 46s duration, 2.84 MB)*
+  _(1080p Full HD, 1m 46s duration, 2.84 MB)_
 - **Thumbnail Image:** [`docs/assets/youtube_thumbnail.png`](file:///c:/VSCODE/CommonScene/docs/assets/youtube_thumbnail.png)  
-  *(1920x1080, 16:9 aspect ratio)*
+  _(1920x1080, 16:9 aspect ratio)_
 
 ---
 
 ## 🏷️ Video Title
 
 ### Recommended Title:
+
 ```text
 CommonScene — Fire TV Group Movie Recommendation (Amazon Developer Hackathon)
 ```
 
 ### Alternative Title:
+
 ```text
 CommonScene: Fair Living-Room Movie Consensus on Fire TV & Amazon Bedrock
 ```
@@ -80,18 +82,20 @@ CommonScene, Fire TV, Vega OS, Amazon Developer Hackathon, Amazon Bedrock, AWS C
 
 ## ⚙️ YouTube Upload Settings Checklist
 
-| Setting | Recommended Value | Why |
-|:---|:---|:---|
-| **Visibility** | **Public** (or **Unlisted**) | Judges must be able to view without login restrictions. |
-| **Audience** | **"No, it's not made for kids"** | Standard developer hackathon setting. |
-| **Category** | **Science & Technology** *(or Film & Animation)* | Relevant category for software development. |
-| **Language** | **English** | Hackathon requirement: demo must be in English. |
-| **Captions** | Automatic or upload transcript | Enhances accessibility for judges. |
-| **License** | Standard YouTube License / Creative Commons | Either is fine. |
+| Setting        | Recommended Value                                | Why                                                     |
+| :------------- | :----------------------------------------------- | :------------------------------------------------------ |
+| **Visibility** | **Public** (or **Unlisted**)                     | Judges must be able to view without login restrictions. |
+| **Audience**   | **"No, it's not made for kids"**                 | Standard developer hackathon setting.                   |
+| **Category**   | **Science & Technology** _(or Film & Animation)_ | Relevant category for software development.             |
+| **Language**   | **English**                                      | Hackathon requirement: demo must be in English.         |
+| **Captions**   | Automatic or upload transcript                   | Enhances accessibility for judges.                      |
+| **License**    | Standard YouTube License / Creative Commons      | Either is fine.                                         |
 
 ---
 
 ## 📋 Next Step
+
 After publishing your video:
+
 1. Copy the public **YouTube Video URL** (e.g. `https://youtu.be/...`).
 2. Paste it into the **Video URL** field on the [Devpost Submission Form](https://amazonappdev2026.devpost.com/).

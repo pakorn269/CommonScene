@@ -24,50 +24,50 @@ import type { TouchableOpacity } from 'react-native';
 type TouchableRef = ElementRef<typeof TouchableOpacity>;
 
 export interface TVFocusOptions {
-    /** If true, this element requests focus when it first mounts. */
-    initialFocus?: boolean;
-    /** Called when this element gains focus. */
-    onFocus?: () => void;
-    /** Called when this element loses focus. */
-    onBlur?: () => void;
+  /** If true, this element requests focus when it first mounts. */
+  initialFocus?: boolean;
+  /** Called when this element gains focus. */
+  onFocus?: () => void;
+  /** Called when this element loses focus. */
+  onBlur?: () => void;
 }
 
 export interface TVFocusResult {
-    focusRef: RefObject<TouchableRef | null>;
-    isFocused: boolean;
-    focusProps: {
-        ref: RefObject<TouchableRef | null>;
-        hasTVPreferredFocus: boolean;
-        onFocus: () => void;
-        onBlur: () => void;
-        accessible: true;
-    };
+  focusRef: RefObject<TouchableRef | null>;
+  isFocused: boolean;
+  focusProps: {
+    ref: RefObject<TouchableRef | null>;
+    hasTVPreferredFocus: boolean;
+    onFocus: () => void;
+    onBlur: () => void;
+    accessible: true;
+  };
 }
 
 export function useTVFocus(options: TVFocusOptions = {}): TVFocusResult {
-    const { initialFocus = false, onFocus, onBlur } = options;
-    const focusRef = useRef<TouchableRef>(null);
-    const [isFocused, setIsFocused] = useState(false);
+  const { initialFocus = false, onFocus, onBlur } = options;
+  const focusRef = useRef<TouchableRef>(null);
+  const [isFocused, setIsFocused] = useState(false);
 
-    const handleFocus = useCallback(() => {
-        setIsFocused(true);
-        onFocus?.();
-    }, [onFocus]);
+  const handleFocus = useCallback(() => {
+    setIsFocused(true);
+    onFocus?.();
+  }, [onFocus]);
 
-    const handleBlur = useCallback(() => {
-        setIsFocused(false);
-        onBlur?.();
-    }, [onBlur]);
+  const handleBlur = useCallback(() => {
+    setIsFocused(false);
+    onBlur?.();
+  }, [onBlur]);
 
-    return {
-        focusRef,
-        isFocused,
-        focusProps: {
-            ref: focusRef,
-            hasTVPreferredFocus: initialFocus,
-            onFocus: handleFocus,
-            onBlur: handleBlur,
-            accessible: true,
-        },
-    };
+  return {
+    focusRef,
+    isFocused,
+    focusProps: {
+      ref: focusRef,
+      hasTVPreferredFocus: initialFocus,
+      onFocus: handleFocus,
+      onBlur: handleBlur,
+      accessible: true,
+    },
+  };
 }

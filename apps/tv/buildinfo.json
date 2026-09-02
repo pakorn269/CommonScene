@@ -1,1 +1,26 @@
-{"aarch64_Release":{"lib":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/aarch64/Release/libtv.so","vpkg":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/aarch64/Release/tv_aarch64.vpkg"},"aarch64-release":{"lib":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/aarch64/Release/libtv.so","vpkg":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/aarch64/Release/tv_aarch64.vpkg"},"armv7_Release":{"lib":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/armv7/Release/libtv.so","vpkg":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/armv7/Release/tv_armv7.vpkg"},"armv7-release":{"lib":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/armv7/Release/libtv.so","vpkg":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/armv7/Release/tv_armv7.vpkg"},"x86_64_Release":{"lib":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/x86_64/Release/libtv.so","vpkg":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/x86_64/Release/tv_x86_64.vpkg"},"x86_64-release":{"lib":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/x86_64/Release/libtv.so","vpkg":"/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/x86_64/Release/tv_x86_64.vpkg"}}
+{
+  "aarch64_Release": {
+    "lib": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/aarch64/Release/libtv.so",
+    "vpkg": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/aarch64/Release/tv_aarch64.vpkg"
+  },
+  "aarch64-release": {
+    "lib": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/aarch64/Release/libtv.so",
+    "vpkg": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/aarch64/Release/tv_aarch64.vpkg"
+  },
+  "armv7_Release": {
+    "lib": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/armv7/Release/libtv.so",
+    "vpkg": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/armv7/Release/tv_armv7.vpkg"
+  },
+  "armv7-release": {
+    "lib": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/armv7/Release/libtv.so",
+    "vpkg": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/armv7/Release/tv_armv7.vpkg"
+  },
+  "x86_64_Release": {
+    "lib": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/x86_64/Release/libtv.so",
+    "vpkg": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/x86_64/Release/tv_x86_64.vpkg"
+  },
+  "x86_64-release": {
+    "lib": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/vega/x86_64/Release/libtv.so",
+    "vpkg": "/mnt/c/VSCODE/CommonScene/apps/tv/build/private/kepler/tv/undefined/vega/x86_64/Release/tv_x86_64.vpkg"
+  }
+}

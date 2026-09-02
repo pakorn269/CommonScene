@@ -13,13 +13,16 @@ WSL 2 on Windows 11 provides native KVM nested virtualization (`/dev/kvm`) and
 WSLg GUI window integration out-of-the-box.
 
 ### Ubuntu 24.04 Setup in WSL
+
 ```powershell
 # From Windows PowerShell / Terminal
 wsl --install -d Ubuntu-24.04
 ```
 
 ### Install Linux System Dependencies
+
 Inside Ubuntu 24.04:
+
 ```bash
 sudo apt update && sudo apt install -y \
   ca-certificates curl gnupg build-essential git \
@@ -34,6 +37,7 @@ kvm-ok
 ```
 
 ### Install Node.js 20 LTS
+
 ```bash
 mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
@@ -46,16 +50,19 @@ sudo apt update && sudo apt install -y nodejs
 ## 2. Install Vega Developer Tools (VDT)
 
 Run the installer as a regular (non-root) user:
+
 ```bash
 curl -fsSL https://sdk-installer.vega.labcollab.net/get_vvm.sh | bash
 ```
 
 Install the active Vega SDK (includes the Vega Virtual Device):
+
 ```bash
 /home/$USER/vega/bin/vega sdk install --non-interactive
 ```
 
 Add the Vega environment variables to `~/.bashrc`:
+
 ```bash
 cat << 'EOF' >> ~/.bashrc
 export PATH="/home/$USER/vega/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -68,6 +75,7 @@ source ~/.bashrc
 ```
 
 Verify installation:
+
 ```bash
 vega --version
 # Vega CLI Version: 1.3.4 (Active SDK Version: 0.24.9914)
@@ -78,6 +86,7 @@ vega --version
 ## 3. Launching the Vega Virtual Device (VVD)
 
 Start the VVD in the background with software OpenGL (recommended for WSL 2):
+
 ```bash
 SDK_DIR=/home/$USER/vega/sdk/vega-sdk/main/0.24.9914
 AGENT_DIR=$SDK_DIR/vvd/images/tv/vmtools/agent
@@ -101,6 +110,7 @@ $AGENT_DIR/qemu/linux-x86_64/vega-virtual-device \
 ```
 
 Check device status:
+
 ```bash
 vega device list
 # VirtualDevice : tv - x86_64 - OS - amazon-...
@@ -111,13 +121,16 @@ vega device list
 ## 4. Building and Deploying CommonScene TV
 
 ### Build the Package
+
 From the `apps/tv` directory:
+
 ```bash
 cd apps/tv
 npm run build:release
 ```
 
 ### Pack and Install to Vega Virtual Device
+
 ```bash
 # Stage in ext4 and pack
 rm -rf /tmp/tv_stage /tmp/tv_output
@@ -137,12 +150,12 @@ vega device launch-app -d VirtualDevice --appName com.commonscene.tv.main
 
 ## 5. D-pad Navigation Key Mappings
 
-| Remote Action | QMP / Keyboard Key | Function in CommonScene |
-|---|---|---|
-| D-pad Up | Up Arrow (`up`) | Focus "Create Room" |
-| D-pad Down | Down Arrow (`down`) | Focus "Demo Mode" |
-| Select | Enter (`ret`) | Activate focused button |
-| Back | Escape (`esc`) | Return to previous screen / exit |
+| Remote Action | QMP / Keyboard Key  | Function in CommonScene          |
+| ------------- | ------------------- | -------------------------------- |
+| D-pad Up      | Up Arrow (`up`)     | Focus "Create Room"              |
+| D-pad Down    | Down Arrow (`down`) | Focus "Demo Mode"                |
+| Select        | Enter (`ret`)       | Activate focused button          |
+| Back          | Escape (`esc`)      | Return to previous screen / exit |
 
 ---
 
@@ -159,13 +172,13 @@ The Vega simulator can reach the host Fastify development server at `http://10.0
 
 ## Confirmed Tool Versions
 
-| Tool | Version | Status |
-|---|---|---|
-| OS | Windows 11 + WSL 2 (Kernel 6.6.87.2) | Verified |
-| WSL Distro | Ubuntu 24.04 LTS (noble) | Verified |
-| Node.js | v20.20.2 LTS | Verified |
-| npm | 10.8.2 | Verified |
-| Vega CLI | 1.3.4 | Verified |
-| Vega SDK | 0.24.9914 (Channel: main) | Verified |
-| Vega OS Virtual Device | OS 1.2 (`vvrp-tv-x64`) | Verified |
-| React Native | 0.83.0 / Kepler 4.0.1 | Verified |
+| Tool                   | Version                              | Status   |
+| ---------------------- | ------------------------------------ | -------- |
+| OS                     | Windows 11 + WSL 2 (Kernel 6.6.87.2) | Verified |
+| WSL Distro             | Ubuntu 24.04 LTS (noble)             | Verified |
+| Node.js                | v20.20.2 LTS                         | Verified |
+| npm                    | 10.8.2                               | Verified |
+| Vega CLI               | 1.3.4                                | Verified |
+| Vega SDK               | 0.24.9914 (Channel: main)            | Verified |
+| Vega OS Virtual Device | OS 1.2 (`vvrp-tv-x64`)               | Verified |
+| React Native           | 0.83.0 / Kepler 4.0.1                | Verified |

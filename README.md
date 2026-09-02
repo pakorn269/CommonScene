@@ -5,13 +5,13 @@
 
   <p><em>Built for the <strong>Build, Ship, Shape: Amazon Developer Hackathon 2026</strong></em></p>
 
-  [![CI](https://github.com/pakorn269/CommonScene/actions/workflows/ci.yml/badge.svg)](https://github.com/pakorn269/CommonScene/actions/workflows/ci.yml)
-  [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
-  [![Platform](https://img.shields.io/badge/Platform-Fire%20TV%20(Vega%20OS)-orange.svg)](https://developer.amazon.com/fire-tv)
-  [![AI](https://img.shields.io/badge/AI-Amazon%20Bedrock-purple.svg)](https://aws.amazon.com/bedrock/)
-  [![IaC](https://img.shields.io/badge/IaC-AWS%20CDK%20v2-yellow.svg)](https://aws.amazon.com/cdk/)
-  [![Demo Video](https://img.shields.io/badge/Demo%20Video-YouTube-red.svg?logo=youtube)](https://youtu.be/8_Ttd3JLErE)
-  [![Devpost](https://img.shields.io/badge/Devpost-CommonScene-003E54.svg?logo=devpost)](https://devpost.com/software/commonscene)
+[![CI](https://github.com/pakorn269/CommonScene/actions/workflows/ci.yml/badge.svg)](https://github.com/pakorn269/CommonScene/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
+[![Platform](<https://img.shields.io/badge/Platform-Fire%20TV%20(Vega%20OS)-orange.svg>)](https://developer.amazon.com/fire-tv)
+[![AI](https://img.shields.io/badge/AI-Amazon%20Bedrock-purple.svg)](https://aws.amazon.com/bedrock/)
+[![IaC](https://img.shields.io/badge/IaC-AWS%20CDK%20v2-yellow.svg)](https://aws.amazon.com/cdk/)
+[![Demo Video](https://img.shields.io/badge/Demo%20Video-YouTube-red.svg?logo=youtube)](https://youtu.be/8_Ttd3JLErE)
+[![Devpost](https://img.shields.io/badge/Devpost-CommonScene-003E54.svg?logo=devpost)](https://devpost.com/software/commonscene)
 </div>
 
 ---
@@ -21,6 +21,7 @@
 **The Problem:** Every household knows the "30-minute scroll" — sitting on the couch endlessly browsing streaming menus, arguing over genres, runtimes, and ratings until everyone loses interest. Individual recommendation algorithms optimize for a single profile, ignoring the group dynamic and hard time constraints.
 
 **The Solution:** CommonScene is a television-first experience that turns group movie selection into an interactive, democratic game:
+
 1. **Fire TV Host:** Displays a large 4-letter room code and QR join link on the television.
 2. **Instant Mobile Joining:** Up to dozens of viewers join on their phones without creating an account or downloading an app (via Mobile PWA).
 3. **Smart Preferences:** Viewers select genres, moods, maximum runtime, and rating ceilings — or type natural language preferences.
@@ -40,15 +41,15 @@
 
 ## ✨ Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| 📺 **10-Foot Fire TV UI** | Native React Native on **Vega OS** with full D-pad remote navigation, visual focus indicators ($\ge 3\text{px}$), and 5% TV-safe overscan margins. |
-| 📱 **Zero-Friction Mobile PWA** | Pure web participation at `http://localhost:5173` (or production CloudFront URL). No account creation, passwords, or app installation required. |
-| ⚖️ **Deterministic Consensus** | Pure TypeScript algorithm balancing average satisfaction, minimum viewer happiness, and preference coverage. Ties broken deterministically. |
+| Feature                           | Description                                                                                                                                                        |
+| :-------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 📺 **10-Foot Fire TV UI**         | Native React Native on **Vega OS** with full D-pad remote navigation, visual focus indicators ($\ge 3\text{px}$), and 5% TV-safe overscan margins.                 |
+| 📱 **Zero-Friction Mobile PWA**   | Pure web participation at `http://localhost:5173` (or production CloudFront URL). No account creation, passwords, or app installation required.                    |
+| ⚖️ **Deterministic Consensus**    | Pure TypeScript algorithm balancing average satisfaction, minimum viewer happiness, and preference coverage. Ties broken deterministically.                        |
 | 🤖 **Amazon Bedrock Integration** | Server-side Converse API (`anthropic.claude-3-5-sonnet` / `amazon.nova-lite`) for free-text parsing and natural consensus explanations with 100% offline fallback. |
-| ⚡ **Realtime WebSocket Sync** | Low-latency state synchronization across TV and mobile devices via Fastify WebSocket event hub. |
-| ☁️ **AWS Serverless IaC** | Complete AWS CDK v2 stack defining Amazon DynamoDB (with TTL), S3 + CloudFront (OAC), and Bedrock IAM policies. |
-| 🍿 **90-Second Offline Demo** | Built-in offline demo mode on Fire TV with predictable test profiles (Alice, Bob, Charlie) that runs completely without external services. |
+| ⚡ **Realtime WebSocket Sync**    | Low-latency state synchronization across TV and mobile devices via Fastify WebSocket event hub.                                                                    |
+| ☁️ **AWS Serverless IaC**         | Complete AWS CDK v2 stack defining Amazon DynamoDB (with TTL), S3 + CloudFront (OAC), and Bedrock IAM policies.                                                    |
+| 🍿 **90-Second Offline Demo**     | Built-in offline demo mode on Fire TV with predictable test profiles (Alice, Bob, Charlie) that runs completely without external services.                         |
 
 ---
 
@@ -132,11 +133,13 @@ commonscene/
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - **Node.js**: `20.0.0 LTS` or higher
 - **npm**: `10.0.0` or higher
 - **WSL 2** (Windows 11) with Ubuntu 24.04 LTS (for Vega OS TV simulator)
 
 ### 1. Installation & Environment Setup
+
 ```bash
 # Clone the repository
 git clone https://github.com/pakorn269/commonscene.git
@@ -150,6 +153,7 @@ cp .env.example .env
 ```
 
 ### 2. Verify Code Quality & Test Suite
+
 ```bash
 # Run ESLint, TypeScript typecheck, and Vitest suite (33 passing tests)
 npm run lint
@@ -163,18 +167,23 @@ npm run build
 ## 💻 Running Locally
 
 ### 1. Fastify API Server
+
 ```bash
 npm --workspace=@commonscene/api run dev
 ```
+
 Starts on `http://localhost:3001` (REST `/api/v1/...` and WebSocket `/ws/rooms/:roomCode`).
 
 ### 2. Mobile Participant PWA
+
 ```bash
 npm --workspace=@commonscene/mobile run dev
 ```
+
 Open `http://localhost:5173` in any desktop or mobile browser. Enter any 4-letter room code to join.
 
 ### 3. Fire TV App (Vega OS Simulator)
+
 ```bash
 # In WSL 2 Ubuntu with Vega SDK:
 cd apps/tv
@@ -182,12 +191,15 @@ npm run build:release
 vpt pack build/private/vega/x86_64/Release -n tv_x86_64 -d /tmp/tv_output --validate
 vega run-app /tmp/tv_output/tv_x86_64.vpkg com.commonscene.tv.main -d VirtualDevice
 ```
+
 Use D-pad remote keys (`Up`, `Down`, `Enter`, `Escape`) to navigate on the TV.
 
 ### 4. Automated 1080p Demo Video Generator
+
 ```bash
 python scripts/generate_video.py
 ```
+
 Synthesizes English neural voiceover (Edge-TTS), renders high-DPI 1080p UI frames (Playwright), and produces the complete hackathon submission video in `docs/assets/CommonScene_Demo_Video_1080p.mp4`.
 
 ---
@@ -195,11 +207,13 @@ Synthesizes English neural voiceover (Edge-TTS), renders high-DPI 1080p UI frame
 ## ☁️ AWS Cloud Deployment (AWS CDK)
 
 Synthesize CloudFormation templates:
+
 ```bash
 npm --workspace=@commonscene/cdk run synth
 ```
 
 Deploy infrastructure to your AWS account:
+
 ```bash
 npm --workspace=@commonscene/cdk run deploy
 ```
@@ -220,10 +234,10 @@ npm --workspace=@commonscene/cdk run deploy
 ## 🏆 Hackathon Track Alignment
 
 - **Primary Track:** Fire TV
-  - *Priority Categories:* AI-Enhanced Viewing, Family Entertainment
+  - _Priority Categories:_ AI-Enhanced Viewing, Family Entertainment
 - **Mini Challenges:**
-  - *AWS Builder:* Fully integrated Amazon Bedrock (Claude 3.5 Sonnet / Nova Lite) + AWS CDK v2 IaC stack (DynamoDB, S3, CloudFront).
-  - *Open Source:* 100% open-source under Apache-2.0 with modular monorepo packages, strict TypeScript, and complete test suites.
+  - _AWS Builder:_ Fully integrated Amazon Bedrock (Claude 3.5 Sonnet / Nova Lite) + AWS CDK v2 IaC stack (DynamoDB, S3, CloudFront).
+  - _Open Source:_ 100% open-source under Apache-2.0 with modular monorepo packages, strict TypeScript, and complete test suites.
 
 ---
 

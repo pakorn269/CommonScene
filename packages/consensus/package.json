@@ -1,32 +1,32 @@
 {
-    "name": "@commonscene/consensus",
-    "version": "0.1.0",
-    "private": true,
-    "description": "Deterministic fairness-aware movie recommendation engine",
-    "license": "Apache-2.0",
-    "type": "module",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "import": "./dist/index.js",
-            "types": "./dist/index.d.ts"
-        }
-    },
-    "scripts": {
-        "build": "tsc --build",
-        "clean": "rimraf dist tsconfig.tsbuildinfo",
-        "typecheck": "tsc --build --noEmit",
-        "test": "vitest run"
-    },
-    "dependencies": {
-        "@commonscene/contracts": "*",
-        "@commonscene/catalog": "*"
-    },
-    "devDependencies": {
-        "@commonscene/test-fixtures": "*",
-        "rimraf": "^6.0.1",
-        "typescript": "^5.5.4",
-        "vitest": "^2.0.5"
+  "name": "@commonscene/consensus",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministic fairness-aware movie recommendation engine",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     }
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "typecheck": "tsc --build --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@commonscene/contracts": "*",
+    "@commonscene/catalog": "*"
+  },
+  "devDependencies": {
+    "@commonscene/test-fixtures": "*",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
 }

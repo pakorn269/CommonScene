@@ -61,6 +61,7 @@ set at the command level; app bundles that use `noEmit` cannot be composite
 project references\
 **Severity:** Low\
 **Workaround:**
+
 - Removed `rootDir`/`outDir`/`declaration` from `tsconfig.base.json`;
   each emitting package declares them explicitly.
 - Removed `apps/mobile` and `apps/tv` from root project references.
@@ -168,5 +169,3 @@ prerequisite check (`_001_check_prereqs`).\
 **Time lost:** ~10 minutes\
 **Suggested improvement:** Document standard multi-port full-stack CORS setup in Fastify TypeScript template.\
 **Evidence:** Browser automated tests verified `Preflight Status: 204` with full request roundtrips.
-
-

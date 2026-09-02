@@ -11,83 +11,74 @@
  * 5. Bedrock calls remain strictly server-side.
  */
 
-import {
-    BedrockRuntimeClient,
-    ConverseCommand,
-} from '@aws-sdk/client-bedrock-runtime';
-import {
-    type Movie,
-    type PreferenceProfile,
-    type RankedMovie,
-} from '@commonscene/contracts';
+import { BedrockRuntimeClient, ConverseCommand } from '@aws-sdk/client-bedrock-runtime';
+import { type Movie, type PreferenceProfile, type RankedMovie } from '@commonscene/contracts';
 import { generateDeterministicExplanation } from '@commonscene/consensus';
 import {
-    BedrockExplanationSchema,
-    BedrockGroupSummarySchema,
-    BedrockPreferenceParseSchema,
-    type BedrockParsedPreferences,
+  BedrockExplanationSchema,
+  BedrockGroupSummarySchema,
+  BedrockPreferenceParseSchema,
+  type BedrockParsedPreferences,
 } from './types.js';
 
 export interface BedrockServiceOptions {
-    client?: BedrockRuntimeClient;
-    modelId?: string;
-    region?: string;
-    enabled?: boolean;
+  client?: BedrockRuntimeClient;
+  modelId?: string;
+  region?: string;
+  enabled?: boolean;
 }
 
 export class BedrockService {
-    private client: BedrockRuntimeClient | null = null;
-    private modelId: string;
-    private enabled: boolean;
+  private client: BedrockRuntimeClient | null = null;
+  private modelId: string;
+  private enabled: boolean;
 
-    constructor(options: BedrockServiceOptions = {}) {
-        this.modelId =
-            options.modelId ||
-            process.env['BEDROCK_MODEL_ID'] ||
-            'anthropic.claude-3-5-sonnet-20241022-v2:0';
+  constructor(options: BedrockServiceOptions = {}) {
+    this.modelId =
+      options.modelId ||
+      process.env['BEDROCK_MODEL_ID'] ||
+      'anthropic.claude-3-5-sonnet-20241022-v2:0';
 
-        const envEnabled =
-            process.env['BEDROCK_ENABLED'] === 'true' ||
-            (process.env['ENABLE_BEDROCK'] !== undefined &&
-                process.env['ENABLE_BEDROCK'] !== 'false');
+    const envEnabled =
+      process.env['BEDROCK_ENABLED'] === 'true' ||
+      (process.env['ENABLE_BEDROCK'] !== undefined && process.env['ENABLE_BEDROCK'] !== 'false');
 
-        this.enabled = options.enabled ?? envEnabled;
+    this.enabled = options.enabled ?? envEnabled;
 
-        if (this.enabled) {
-            if (options.client) {
-                this.client = options.client;
-            } else {
-                try {
-                    const region =
-                        options.region || process.env['AWS_REGION'] || 'us-east-1';
-                    this.client = new BedrockRuntimeClient({ region });
-                } catch {
-                    this.client = null;
-                }
-            }
-        }
-    }
-
-    /**
-     * Checks if Bedrock service is initialized and enabled.
-     */
-    public isAvailable(): boolean {
-        return this.enabled && this.client !== null;
-    }
-
-    /**
-     * Parses free-text user preferences into structured candidate values using Amazon Bedrock.
-     * Returns null if Bedrock is unavailable, unconfigured, or output fails Zod validation.
-     */
-    public async parseFreeTextPreferences(
-        freeText: string
-    ): Promise<BedrockParsedPreferences | null> {
-        if (!this.isAvailable() || !this.client || !freeText || freeText.trim().length === 0) {
-            return null;
-        }
-
+    if (this.enabled) {
+      if (options.client) {
+        this.client = options.client;
+      } else {
         try {
-            const prompt = `You are a movie recommendation assistant. Convert the following natural language user movie preference into structured JSON.
+          const region = options.region || process.env['AWS_REGION'] || 'us-east-1';
+          this.client = new BedrockRuntimeClient({ region });
+        } catch {
+          this.client = null;
+        }
+      }
+    }
+  }
+
+  /**
+   * Checks if Bedrock service is initialized and enabled.
+   */
+  public isAvailable(): boolean {
+    return this.enabled && this.client !== null;
+  }
+
+  /**
+   * Parses free-text user preferences into structured candidate values using Amazon Bedrock.
+   * Returns null if Bedrock is unavailable, unconfigured, or output fails Zod validation.
+   */
+  public async parseFreeTextPreferences(
+    freeText: string,
+  ): Promise<BedrockParsedPreferences | null> {
+    if (!this.isAvailable() || !this.client || !freeText || freeText.trim().length === 0) {
+      return null;
+    }
+
+    try {
+      const prompt = `You are a movie recommendation assistant. Convert the following natural language user movie preference into structured JSON.
 
 User input: "${freeText}"
 
@@ -106,76 +97,74 @@ Rules:
 - Standard ratings: G, PG, PG-13, R.
 - Output ONLY raw JSON without markdown fences, explanation, or commentary.`;
 
-            const command = new ConverseCommand({
-                modelId: this.modelId,
-                messages: [
-                    {
-                        role: 'user',
-                        content: [{ text: prompt }],
-                    },
-                ],
-                inferenceConfig: {
-                    maxTokens: 500,
-                    temperature: 0.1,
-                },
-            });
+      const command = new ConverseCommand({
+        modelId: this.modelId,
+        messages: [
+          {
+            role: 'user',
+            content: [{ text: prompt }],
+          },
+        ],
+        inferenceConfig: {
+          maxTokens: 500,
+          temperature: 0.1,
+        },
+      });
 
-            const response = await this.client.send(command);
-            const rawText =
-                response.output?.message?.content?.[0]?.text?.trim();
+      const response = await this.client.send(command);
+      const rawText = response.output?.message?.content?.[0]?.text?.trim();
 
-            if (!rawText) {
-                return null;
-            }
+      if (!rawText) {
+        return null;
+      }
 
-            const jsonStr = rawText
-                .replace(/^```json\s*/i, '')
-                .replace(/^```\s*/i, '')
-                .replace(/\s*```$/i, '')
-                .trim();
+      const jsonStr = rawText
+        .replace(/^```json\s*/i, '')
+        .replace(/^```\s*/i, '')
+        .replace(/\s*```$/i, '')
+        .trim();
 
-            const parsedJson: unknown = JSON.parse(jsonStr);
-            const validationResult =
-                BedrockPreferenceParseSchema.safeParse(parsedJson);
+      const parsedJson: unknown = JSON.parse(jsonStr);
+      const validationResult = BedrockPreferenceParseSchema.safeParse(parsedJson);
 
-            if (validationResult.success) {
-                return validationResult.data;
-            } else {
-                return null;
-            }
-        } catch {
-            // Graceful fallback per AGENTS.md: log non-sensitive error and ignore AI interpretation
-            return null;
-        }
+      if (validationResult.success) {
+        return validationResult.data;
+      } else {
+        return null;
+      }
+    } catch {
+      // Graceful fallback per AGENTS.md: log non-sensitive error and ignore AI interpretation
+      return null;
+    }
+  }
+
+  /**
+   * Generates a natural English consensus explanation from verified score data using Bedrock.
+   * Automatically falls back to deterministic template explanation if Bedrock fails or is unavailable.
+   */
+  public async explainRecommendation(
+    movie: Movie,
+    score: RankedMovie,
+    profiles: PreferenceProfile[],
+  ): Promise<string> {
+    const fallbackExplanation = generateDeterministicExplanation(
+      movie,
+      {
+        averageSatisfaction: score.averageSatisfaction,
+        minimumSatisfaction: score.minimumSatisfaction,
+        preferenceCoverage: score.preferenceCoverage,
+        penalty: score.penalty,
+      },
+      score.matchedPreferenceKeys,
+      profiles.length,
+    );
+
+    if (!this.isAvailable() || !this.client) {
+      return fallbackExplanation;
     }
 
-    /**
-     * Generates a natural English consensus explanation from verified score data using Bedrock.
-     * Automatically falls back to deterministic template explanation if Bedrock fails or is unavailable.
-     */
-    public async explainRecommendation(
-        movie: Movie,
-        score: RankedMovie,
-        profiles: PreferenceProfile[]
-    ): Promise<string> {
-        const fallbackExplanation = generateDeterministicExplanation(
-            movie,
-            {
-                averageSatisfaction: score.averageSatisfaction,
-                minimumSatisfaction: score.minimumSatisfaction,
-                preferenceCoverage: score.preferenceCoverage,
-                penalty: score.penalty,
-            },
-            score.matchedPreferenceKeys,
-            profiles.length
-        );
-
-        if (!this.isAvailable() || !this.client) {
-            return fallbackExplanation;
-        }
-
-        try {
-            const prompt = `You are an AI assistant for CommonScene, a Fire TV group movie recommendation app.
+    try {
+      const prompt = `You are an AI assistant for CommonScene, a Fire TV group movie recommendation app.
 Generate a friendly, 1-2 sentence group consensus explanation for why the movie "${movie.title}" was recommended.
 
 Verified Score Data:
@@ -204,66 +193,61 @@ Rules:
 - Do NOT make up unsupported movie facts or claim streaming platform availability.
 - Output ONLY raw JSON without markdown fences.`;
 
-            const command = new ConverseCommand({
-                modelId: this.modelId,
-                messages: [
-                    {
-                        role: 'user',
-                        content: [{ text: prompt }],
-                    },
-                ],
-                inferenceConfig: {
-                    maxTokens: 300,
-                    temperature: 0.3,
-                },
-            });
+      const command = new ConverseCommand({
+        modelId: this.modelId,
+        messages: [
+          {
+            role: 'user',
+            content: [{ text: prompt }],
+          },
+        ],
+        inferenceConfig: {
+          maxTokens: 300,
+          temperature: 0.3,
+        },
+      });
 
-            const response = await this.client.send(command);
-            const rawText =
-                response.output?.message?.content?.[0]?.text?.trim();
+      const response = await this.client.send(command);
+      const rawText = response.output?.message?.content?.[0]?.text?.trim();
 
-            if (!rawText) {
-                return fallbackExplanation;
-            }
+      if (!rawText) {
+        return fallbackExplanation;
+      }
 
-            const jsonStr = rawText
-                .replace(/^```json\s*/i, '')
-                .replace(/^```\s*/i, '')
-                .replace(/\s*```$/i, '')
-                .trim();
+      const jsonStr = rawText
+        .replace(/^```json\s*/i, '')
+        .replace(/^```\s*/i, '')
+        .replace(/\s*```$/i, '')
+        .trim();
 
-            const parsedJson: unknown = JSON.parse(jsonStr);
-            const validationResult =
-                BedrockExplanationSchema.safeParse(parsedJson);
+      const parsedJson: unknown = JSON.parse(jsonStr);
+      const validationResult = BedrockExplanationSchema.safeParse(parsedJson);
 
-            if (
-                validationResult.success &&
-                validationResult.data.explanation.trim().length > 0
-            ) {
-                return validationResult.data.explanation.trim();
-            }
+      if (validationResult.success && validationResult.data.explanation.trim().length > 0) {
+        return validationResult.data.explanation.trim();
+      }
 
-            return fallbackExplanation;
-        } catch {
-            return fallbackExplanation;
-        }
+      return fallbackExplanation;
+    } catch {
+      return fallbackExplanation;
+    }
+  }
+
+  /**
+   * Generates a group summary describing overall consensus.
+   */
+  public async generateGroupSummary(
+    profiles: PreferenceProfile[],
+    topMovie: Movie,
+  ): Promise<string> {
+    const fallbackSummary = `Group consensus reached for ${profiles.length} viewer${profiles.length === 1 ? '' : 's'} with ${topMovie.title} (${topMovie.genres.join(', ')}).`;
+
+    if (!this.isAvailable() || !this.client) {
+      return fallbackSummary;
     }
 
-    /**
-     * Generates a group summary describing overall consensus.
-     */
-    public async generateGroupSummary(
-        profiles: PreferenceProfile[],
-        topMovie: Movie
-    ): Promise<string> {
-        const fallbackSummary = `Group consensus reached for ${profiles.length} viewer${profiles.length === 1 ? '' : 's'} with ${topMovie.title} (${topMovie.genres.join(', ')}).`;
-
-        if (!this.isAvailable() || !this.client) {
-            return fallbackSummary;
-        }
-
-        try {
-            const prompt = `Summarize in 1 sentence how a group of ${profiles.length} viewers found common ground with the movie "${topMovie.title}" (${topMovie.genres.join(', ')}).
+    try {
+      const prompt = `Summarize in 1 sentence how a group of ${profiles.length} viewers found common ground with the movie "${topMovie.title}" (${topMovie.genres.join(', ')}).
 
 Output strictly in JSON:
 {
@@ -271,44 +255,43 @@ Output strictly in JSON:
 }
 Output ONLY raw JSON.`;
 
-            const command = new ConverseCommand({
-                modelId: this.modelId,
-                messages: [
-                    {
-                        role: 'user',
-                        content: [{ text: prompt }],
-                    },
-                ],
-                inferenceConfig: {
-                    maxTokens: 200,
-                    temperature: 0.3,
-                },
-            });
+      const command = new ConverseCommand({
+        modelId: this.modelId,
+        messages: [
+          {
+            role: 'user',
+            content: [{ text: prompt }],
+          },
+        ],
+        inferenceConfig: {
+          maxTokens: 200,
+          temperature: 0.3,
+        },
+      });
 
-            const response = await this.client.send(command);
-            const rawText =
-                response.output?.message?.content?.[0]?.text?.trim();
+      const response = await this.client.send(command);
+      const rawText = response.output?.message?.content?.[0]?.text?.trim();
 
-            if (!rawText) return fallbackSummary;
+      if (!rawText) return fallbackSummary;
 
-            const jsonStr = rawText
-                .replace(/^```json\s*/i, '')
-                .replace(/^```\s*/i, '')
-                .replace(/\s*```$/i, '')
-                .trim();
+      const jsonStr = rawText
+        .replace(/^```json\s*/i, '')
+        .replace(/^```\s*/i, '')
+        .replace(/\s*```$/i, '')
+        .trim();
 
-            const parsedJson: unknown = JSON.parse(jsonStr);
-            const validation = BedrockGroupSummarySchema.safeParse(parsedJson);
+      const parsedJson: unknown = JSON.parse(jsonStr);
+      const validation = BedrockGroupSummarySchema.safeParse(parsedJson);
 
-            if (validation.success && validation.data.summary.trim().length > 0) {
-                return validation.data.summary.trim();
-            }
+      if (validation.success && validation.data.summary.trim().length > 0) {
+        return validation.data.summary.trim();
+      }
 
-            return fallbackSummary;
-        } catch {
-            return fallbackSummary;
-        }
+      return fallbackSummary;
+    } catch {
+      return fallbackSummary;
     }
+  }
 }
 
 export const defaultBedrockService = new BedrockService();

@@ -1,27 +1,27 @@
 {
-    "name": "@commonscene/cdk",
-    "version": "0.1.0",
-    "private": true,
-    "description": "CommonScene AWS CDK infrastructure definitions",
-    "license": "Apache-2.0",
-    "type": "module",
-    "main": "./dist/index.js",
-    "scripts": {
-        "build": "tsc --build",
-        "typecheck": "tsc --build --noEmit",
-        "synth": "cdk synth",
-        "deploy": "cdk deploy",
-        "destroy": "cdk destroy",
-        "clean": "rimraf dist cdk.out tsconfig.tsbuildinfo"
-    },
-    "dependencies": {
-        "aws-cdk-lib": "^2.154.0",
-        "constructs": "^10.3.0"
-    },
-    "devDependencies": {
-        "@types/node": "^22.5.1",
-        "aws-cdk": "^2.154.0",
-        "rimraf": "^6.0.1",
-        "typescript": "^5.5.4"
-    }
+  "name": "@commonscene/cdk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CommonScene AWS CDK infrastructure definitions",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --build --noEmit",
+    "synth": "cdk synth",
+    "deploy": "cdk deploy",
+    "destroy": "cdk destroy",
+    "clean": "rimraf dist cdk.out tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.154.0",
+    "constructs": "^10.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.1",
+    "aws-cdk": "^2.154.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.5.4"
+  }
 }

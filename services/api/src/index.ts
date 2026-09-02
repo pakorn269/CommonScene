@@ -12,15 +12,15 @@ const PORT = parseInt(process.env['API_PORT'] ?? '3001', 10);
 const HOST = process.env['API_HOST'] ?? '0.0.0.0';
 
 async function start() {
-    const app = await buildServer();
+  const app = await buildServer();
 
-    try {
-        const address = await app.listen({ port: PORT, host: HOST });
-        app.log.info(`CommonScene API listening at ${address}`);
-    } catch (err) {
-        app.log.error(err);
-        process.exit(1);
-    }
+  try {
+    const address = await app.listen({ port: PORT, host: HOST });
+    app.log.info(`CommonScene API listening at ${address}`);
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
 }
 
 void start();

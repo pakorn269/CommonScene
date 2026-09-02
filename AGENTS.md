@@ -101,22 +101,17 @@ Required properties:
 
 ```ts
 type RoomStatus =
-    | 'lobby'
-    | 'collecting_preferences'
-    | 'ranking'
-    | 'voting'
-    | 'complete'
-    | 'expired';
+  'lobby' | 'collecting_preferences' | 'ranking' | 'voting' | 'complete' | 'expired';
 
 interface Room {
-    id: string;
-    code: string;
-    status: RoomStatus;
-    hostParticipantId: string;
-    participantIds: string[];
-    candidateMovieIds: string[];
-    createdAt: string;
-    expiresAt: string;
+  id: string;
+  code: string;
+  status: RoomStatus;
+  hostParticipantId: string;
+  participantIds: string[];
+  candidateMovieIds: string[];
+  createdAt: string;
+  expiresAt: string;
 }
 ```
 
@@ -124,13 +119,13 @@ interface Room {
 
 ```ts
 interface Participant {
-    id: string;
-    roomId: string;
-    displayName: string;
-    avatarId: string;
-    isHost: boolean;
-    hasSubmittedPreferences: boolean;
-    joinedAt: string;
+  id: string;
+  roomId: string;
+  displayName: string;
+  avatarId: string;
+  isHost: boolean;
+  hasSubmittedPreferences: boolean;
+  joinedAt: string;
 }
 ```
 
@@ -141,14 +136,14 @@ names.
 
 ```ts
 interface PreferenceProfile {
-    participantId: string;
-    preferredGenres: string[];
-    excludedGenres: string[];
-    moods: string[];
-    maximumRuntimeMinutes: number | null;
-    maximumContentRating: string | null;
-    avoidContentTags: string[];
-    freeText: string | null;
+  participantId: string;
+  preferredGenres: string[];
+  excludedGenres: string[];
+  moods: string[];
+  maximumRuntimeMinutes: number | null;
+  maximumContentRating: string | null;
+  avoidContentTags: string[];
+  freeText: string | null;
 }
 ```
 
@@ -169,16 +164,16 @@ The following fields are soft preferences:
 
 ```ts
 interface Movie {
-    id: string;
-    title: string;
-    synopsis: string;
-    runtimeMinutes: number;
-    releaseYear: number;
-    genres: string[];
-    moods: string[];
-    contentRating: string;
-    contentTags: string[];
-    artworkKey: string;
+  id: string;
+  title: string;
+  synopsis: string;
+  runtimeMinutes: number;
+  releaseYear: number;
+  genres: string[];
+  moods: string[];
+  contentRating: string;
+  contentTags: string[];
+  artworkKey: string;
 }
 ```
 
@@ -216,14 +211,14 @@ Expected result shape:
 
 ```ts
 interface RankedMovie {
-    movieId: string;
-    score: number;
-    averageSatisfaction: number;
-    minimumSatisfaction: number;
-    preferenceCoverage: number;
-    penalty: number;
-    matchedPreferenceKeys: string[];
-    tradeoffs: string[];
+  movieId: string;
+  score: number;
+  averageSatisfaction: number;
+  minimumSatisfaction: number;
+  preferenceCoverage: number;
+  penalty: number;
+  matchedPreferenceKeys: string[];
+  tradeoffs: string[];
 }
 ```
 
@@ -251,11 +246,11 @@ Example structured parsing result:
 
 ```json
 {
-    "moods": ["lighthearted"],
-    "preferredGenres": ["comedy", "adventure"],
-    "excludedGenres": ["horror"],
-    "maximumRuntimeMinutes": 105,
-    "avoidContentTags": ["graphic violence"]
+  "moods": ["lighthearted"],
+  "preferredGenres": ["comedy", "adventure"],
+  "excludedGenres": ["horror"],
+  "maximumRuntimeMinutes": 105,
+  "avoidContentTags": ["graphic violence"]
 }
 ```
 

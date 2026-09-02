@@ -1,0 +1,16 @@
+node_modules
+dist
+build
+.cdk.staging
+cdk.out
+coverage
+video_build
+.system_generated
+*.mp4
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.vpkg
+*.log
+package-lock.json
