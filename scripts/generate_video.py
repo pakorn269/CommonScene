@@ -8,6 +8,7 @@ import os
 import sys
 import subprocess
 import json
+import base64
 from pathlib import Path
 
 # Ensure UTF-8 stdout on Windows
@@ -16,6 +17,7 @@ if sys.platform == "win32":
         sys.stdout.reconfigure(encoding="utf-8")
     except Exception:
         pass
+
 import edge_tts
 from playwright.async_api import async_playwright
 
@@ -23,6 +25,17 @@ ROOT = Path(__file__).resolve().parent.parent
 BUILD_DIR = ROOT / "video_build"
 OUTPUT_DIR = ROOT / "docs" / "assets"
 FINAL_VIDEO = OUTPUT_DIR / "CommonScene_Demo_Video_1080p.mp4"
+
+# Standard Upper Right Corner Logo Header Template
+HEADER_UPPER_RIGHT = """
+<div style="position:absolute;top:50px;right:80px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:10px 22px;border-radius:18px;backdrop-filter:blur(16px);box-shadow:0 8px 30px rgba(0,0,0,0.4);z-index:999;">
+    <img src="{LOGO_URL}" style="width:44px;height:44px;border-radius:10px;display:block;box-shadow:0 0 20px rgba(99,102,241,0.5);" />
+    <div style="display:flex;flex-direction:column;text-align:left;">
+        <span style="font-size:20px;font-weight:800;letter-spacing:0.5px;color:#ffffff;line-height:1.2;">CommonScene</span>
+        <span style="font-size:12px;font-weight:700;color:#818cf8;letter-spacing:1px;text-transform:uppercase;">Fire TV • Vega OS</span>
+    </div>
+</div>
+"""
 
 # Scene Script matching the hackathon 2:45 submission video specification
 SCENES = [
@@ -36,15 +49,16 @@ SCENES = [
         ),
         "html": """
         <div style="width:1920px;height:1080px;background:radial-gradient(circle at 50% 30%, #1e1b4b 0%, #0f172a 60%, #030712 100%);color:white;font-family:'Segoe UI',Roboto,sans-serif;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:80px;position:relative;">
-            <div style="position:absolute;top:60px;left:80px;display:flex;align-items:center;gap:16px;">
-                <img src="{LOGO_URL}" style="width:64px;height:64px;border-radius:16px;box-shadow:0 0 30px rgba(99,102,241,0.5);" />
-                <span style="font-size:28px;font-weight:700;letter-spacing:1px;color:#e0e7ff;">CommonScene</span>
-            </div>
-            <div style="position:absolute;top:60px;right:80px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);padding:10px 24px;border-radius:999px;color:#f87171;font-size:20px;font-weight:600;">
-                ⚠️ Problem: Movie-Night Paralysis
+            
+            <!-- Upper Left Pill -->
+            <div style="position:absolute;top:50px;left:80px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);padding:12px 24px;border-radius:999px;color:#f87171;font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px;">
+                <span>⚠️</span> The Problem: Movie-Night Paralysis
             </div>
 
-            <div style="text-align:center;max-width:1200px;margin-top:40px;">
+            <!-- Upper Right Logo -->
+            {HEADER_UPPER_RIGHT}
+
+            <div style="text-align:center;max-width:1200px;margin-top:60px;">
                 <h1 style="font-size:64px;font-weight:800;line-height:1.2;margin:0 0 24px 0;background:linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #818cf8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
                     30 Minutes of Scrolling.<br/>Zero Consensus.
                 </h1>
@@ -83,27 +97,28 @@ SCENES = [
         ),
         "html": """
         <div style="width:1920px;height:1080px;background:radial-gradient(circle at 50% 30%, #1e1b4b 0%, #0f172a 60%, #030712 100%);color:white;font-family:'Segoe UI',Roboto,sans-serif;display:flex;flex-direction:column;box-sizing:border-box;padding:60px 80px;position:relative;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;">
-                <div style="display:flex;align-items:center;gap:16px;">
-                    <img src="{LOGO_URL}" style="width:54px;height:54px;border-radius:14px;box-shadow:0 0 20px rgba(99,102,241,0.5);" />
-                    <span style="font-size:28px;font-weight:700;color:#e0e7ff;">CommonScene</span>
-                    <span style="background:#4338ca;color:#c7d2fe;font-size:14px;font-weight:700;padding:4px 12px;border-radius:6px;margin-left:8px;">VEGA OS • 10-FOOT UI</span>
-                </div>
-                <div style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);padding:8px 20px;border-radius:999px;color:#4ade80;font-size:18px;font-weight:600;display:flex;align-items:center;gap:8px;">
+            
+            <!-- Upper Left Pill -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:30px;">
+                <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);padding:10px 22px;border-radius:999px;color:#4ade80;font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;">
                     <span style="width:10px;height:10px;background:#4ade80;border-radius:50%;display:inline-block;"></span> Living Room Host
-                </div>
+                </span>
+                <span style="background:#4338ca;color:#c7d2fe;font-size:14px;font-weight:800;padding:6px 14px;border-radius:8px;">VEGA OS • 10-FOOT UI</span>
             </div>
+
+            <!-- Upper Right Logo -->
+            {HEADER_UPPER_RIGHT}
 
             <div style="display:flex;gap:60px;flex:1;align-items:center;">
                 <!-- TV Screen Visual -->
-                <div style="flex:1.4;background:rgba(15,23,42,0.8);border:2px solid rgba(99,102,241,0.4);border-radius:28px;padding:40px;box-shadow:0 20px 50px rgba(0,0,0,0.5);">
+                <div style="flex:1.4;background:rgba(15,23,42,0.85);border:2px solid rgba(99,102,241,0.5);border-radius:28px;padding:40px;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
                     <div style="text-align:center;margin-bottom:30px;">
                         <span style="color:#818cf8;font-size:20px;font-weight:700;letter-spacing:3px;">ROOM CODE</span>
                         <div style="font-size:80px;font-weight:900;letter-spacing:16px;color:#ffffff;text-shadow:0 0 30px rgba(99,102,241,0.8);margin:10px 0;">BKJS</div>
                         <p style="color:#94a3b8;font-size:22px;margin:0;">Scan QR on phone or visit commonscene.tv</p>
                     </div>
                     <div style="display:flex;gap:20px;justify-content:center;">
-                        <div style="background:rgba(255,255,255,0.06);border:2px solid #818cf8;padding:24px 40px;border-radius:18px;text-align:center;transform:scale(1.02);box-shadow:0 0 20px rgba(99,102,241,0.4);">
+                        <div style="background:rgba(255,255,255,0.06);border:2px solid #818cf8;padding:24px 40px;border-radius:18px;text-align:center;transform:scale(1.02);box-shadow:0 0 25px rgba(99,102,241,0.4);">
                             <div style="font-size:22px;font-weight:700;color:#ffffff;">👥 3 Viewers Joined</div>
                             <div style="font-size:16px;color:#a5b4fc;margin-top:6px;">Ready to Submit Preferences</div>
                         </div>
@@ -138,14 +153,15 @@ SCENES = [
         ),
         "html": """
         <div style="width:1920px;height:1080px;background:radial-gradient(circle at 50% 30%, #1e1b4b 0%, #0f172a 60%, #030712 100%);color:white;font-family:'Segoe UI',Roboto,sans-serif;display:flex;flex-direction:column;box-sizing:border-box;padding:60px 80px;position:relative;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
-                <div style="display:flex;align-items:center;gap:16px;">
-                    <img src="{LOGO_URL}" style="width:54px;height:54px;border-radius:14px;" />
-                    <span style="font-size:28px;font-weight:700;color:#e0e7ff;">CommonScene</span>
-                    <span style="background:#0284c7;color:#e0f2fe;font-size:14px;font-weight:700;padding:4px 12px;border-radius:6px;">REACT 19 • MOBILE PWA</span>
-                </div>
-                <div style="color:#94a3b8;font-size:20px;">Zero Login • Zero App Install</div>
+            
+            <!-- Upper Left Pill -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:30px;">
+                <span style="background:#0284c7;color:#e0f2fe;font-size:14px;font-weight:800;padding:6px 14px;border-radius:8px;">REACT 19 • MOBILE PWA</span>
+                <span style="color:#94a3b8;font-size:18px;font-weight:600;">Zero Login • Zero App Install</span>
             </div>
+
+            <!-- Upper Right Logo -->
+            {HEADER_UPPER_RIGHT}
 
             <div style="display:flex;gap:50px;flex:1;align-items:center;justify-content:center;">
                 <!-- Phone 1 (Alice) -->
@@ -200,15 +216,17 @@ SCENES = [
         ),
         "html": """
         <div style="width:1920px;height:1080px;background:radial-gradient(circle at 50% 30%, #1e1b4b 0%, #0f172a 60%, #030712 100%);color:white;font-family:'Segoe UI',Roboto,sans-serif;display:flex;flex-direction:column;box-sizing:border-box;padding:50px 80px;position:relative;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-                <div style="display:flex;align-items:center;gap:16px;">
-                    <img src="{LOGO_URL}" style="width:48px;height:48px;border-radius:12px;" />
-                    <span style="font-size:26px;font-weight:700;color:#e0e7ff;">Deterministic Consensus + Amazon Bedrock AI</span>
-                </div>
-                <div style="background:rgba(147,51,234,0.2);border:1px solid rgba(147,51,234,0.5);padding:6px 18px;border-radius:999px;color:#c084fc;font-size:16px;font-weight:700;">
+            
+            <!-- Upper Left Pill -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+                <span style="background:rgba(147,51,234,0.2);border:1px solid rgba(147,51,234,0.5);padding:8px 20px;border-radius:999px;color:#c084fc;font-size:16px;font-weight:700;">
                     Formula: 0.45·Avg + 0.35·Min + 0.20·Coverage
-                </div>
+                </span>
+                <span style="background:#3b82f6;color:white;font-size:13px;font-weight:800;padding:6px 12px;border-radius:6px;">AMAZON BEDROCK AI</span>
             </div>
+
+            <!-- Upper Right Logo -->
+            {HEADER_UPPER_RIGHT}
 
             <!-- Top 3 Recommendation Cards -->
             <div style="display:flex;gap:30px;flex:1;align-items:stretch;">
@@ -272,10 +290,14 @@ SCENES = [
         ),
         "html": """
         <div style="width:1920px;height:1080px;background:radial-gradient(circle at 50% 30%, #1e1b4b 0%, #0f172a 60%, #030712 100%);color:white;font-family:'Segoe UI',Roboto,sans-serif;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:60px 80px;position:relative;">
-            <div style="position:absolute;top:50px;left:80px;display:flex;align-items:center;gap:16px;">
-                <img src="{LOGO_URL}" style="width:48px;height:48px;border-radius:12px;" />
-                <span style="font-size:26px;font-weight:700;color:#e0e7ff;">CommonScene</span>
+            
+            <!-- Upper Left Pill -->
+            <div style="position:absolute;top:50px;left:80px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);padding:10px 22px;border-radius:999px;color:#4ade80;font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;">
+                <span>🗳️</span> Realtime Group Vote Complete
             </div>
+
+            <!-- Upper Right Logo -->
+            {HEADER_UPPER_RIGHT}
 
             <!-- Winner Presentation Card -->
             <div style="background:rgba(15,23,42,0.85);border:3px solid #f59e0b;border-radius:36px;padding:60px 80px;max-width:1000px;text-align:center;box-shadow:0 0 80px rgba(245,158,11,0.3);position:relative;">
@@ -311,6 +333,10 @@ SCENES = [
         ),
         "html": """
         <div style="width:1920px;height:1080px;background:radial-gradient(circle at 50% 30%, #1e1b4b 0%, #0f172a 60%, #030712 100%);color:white;font-family:'Segoe UI',Roboto,sans-serif;display:flex;flex-direction:column;justify-content:center;align-items:center;box-sizing:border-box;padding:60px 80px;position:relative;">
+            
+            <!-- Upper Right Logo -->
+            {HEADER_UPPER_RIGHT}
+
             <img src="{LOGO_URL}" style="width:120px;height:120px;border-radius:28px;box-shadow:0 0 50px rgba(99,102,241,0.6);margin-bottom:24px;" />
             
             <h1 style="font-size:56px;font-weight:900;margin:0 0 12px 0;background:linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #818cf8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
@@ -365,9 +391,15 @@ async def main():
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
-    logo_path = (ROOT / "docs" / "assets" / "logo.png").resolve().as_uri()
+    # Read logo as base64 Data URI for 100% reliable rendering
+    logo_file = ROOT / "docs" / "assets" / "logo.png"
+    with open(logo_file, "rb") as f:
+        logo_base64 = f"data:image/png;base64,{base64.b64encode(f.read()).decode('utf-8')}"
 
-    print(f"🎬 Starting CommonScene Demo Video Generation...")
+    # Format upper right header with base64 logo
+    formatted_header = HEADER_UPPER_RIGHT.replace("{LOGO_URL}", logo_base64)
+
+    print("🎬 Starting CommonScene Demo Video Generation...")
     print(f"📁 Build Directory: {BUILD_DIR}")
     
     clip_files = []
@@ -382,24 +414,27 @@ async def main():
             
             # 1. Generate Voiceover Audio
             audio_path = BUILD_DIR / f"{scene_id}.mp3"
-            print(f"🎙️ Generating voiceover audio...")
+            print("🎙️ Generating voiceover audio...")
             await generate_voiceover(scene["voice_text"], audio_path)
             duration = get_audio_duration(audio_path)
-            # Add 0.5s padding
             total_duration = duration + 0.5
             print(f"⏱️ Audio duration: {duration:.2f}s (Total video clip: {total_duration:.2f}s)")
 
             # 2. Render HTML & Take Screenshot
             frame_path = BUILD_DIR / f"{scene_id}.png"
-            rendered_html = scene["html"].replace("{LOGO_URL}", logo_path)
-            await page.set_content(rendered_html)
-            await page.wait_for_timeout(300)
+            rendered_html = (
+                scene["html"]
+                .replace("{HEADER_UPPER_RIGHT}", formatted_header)
+                .replace("{LOGO_URL}", logo_base64)
+            )
+            await page.set_content(rendered_html, wait_until="networkidle")
+            await page.wait_for_timeout(400)
             await page.screenshot(path=str(frame_path))
             print(f"📸 1080p frame captured: {frame_path.name}")
 
             # 3. Create MP4 Video Clip with FFmpeg
             clip_path = BUILD_DIR / f"{scene_id}.mp4"
-            print(f"🎞️ Encoding MP4 video clip...")
+            print("🎞️ Encoding MP4 video clip...")
             cmd = [
                 "ffmpeg", "-y",
                 "-loop", "1",
@@ -423,7 +458,6 @@ async def main():
     concat_list = BUILD_DIR / "concat_list.txt"
     with open(concat_list, "w", encoding="utf-8") as f:
         for clip in clip_files:
-            # Escape path for ffmpeg concat
             f.write(f"file '{clip.resolve().as_posix()}'\n")
 
     cmd_concat = [
@@ -445,7 +479,7 @@ async def main():
     print(f"📹 Output Path: {FINAL_VIDEO}")
     print(f"⏱️ Total Duration: {minutes}m {seconds}s ({final_duration:.1f}s)")
     print(f"📦 File Size: {file_size_mb:.2f} MB")
-    print(f"🌟 Ready for YouTube/Vimeo upload and Devpost submission!")
+    print("🌟 Ready for YouTube/Vimeo upload and Devpost submission!")
 
 if __name__ == "__main__":
     asyncio.run(main())

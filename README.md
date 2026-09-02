@@ -9,8 +9,8 @@
   [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
   [![Platform](https://img.shields.io/badge/Platform-Fire%20TV%20(Vega%20OS)-orange.svg)](https://developer.amazon.com/fire-tv)
   [![AI](https://img.shields.io/badge/AI-Amazon%20Bedrock-purple.svg)](https://aws.amazon.com/bedrock/)
-  [![Infrastructure](https://img.shields.io/badge/IaC-AWS%20CDK%20v2-yellow.svg)](https://aws.amazon.com/cdk/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-Strict%205.5-blue.svg)](https://www.typescriptlang.org/)
+  [![IaC](https://img.shields.io/badge/IaC-AWS%20CDK%20v2-yellow.svg)](https://aws.amazon.com/cdk/)
+  [![Demo Video](https://img.shields.io/badge/Demo%20Video-1080p%20MP4-red.svg)](docs/assets/CommonScene_Demo_Video_1080p.mp4)
 </div>
 
 ---
@@ -182,6 +182,12 @@ vpt pack build/private/vega/x86_64/Release -n tv_x86_64 -d /tmp/tv_output --vali
 vega run-app /tmp/tv_output/tv_x86_64.vpkg com.commonscene.tv.main -d VirtualDevice
 ```
 Use D-pad remote keys (`Up`, `Down`, `Enter`, `Escape`) to navigate on the TV.
+
+### 4. Automated 1080p Demo Video Generator
+```bash
+python scripts/generate_video.py
+```
+Synthesizes English neural voiceover (Edge-TTS), renders high-DPI 1080p UI frames (Playwright), and produces the complete hackathon submission video in `docs/assets/CommonScene_Demo_Video_1080p.mp4`.
 
 ---
 
