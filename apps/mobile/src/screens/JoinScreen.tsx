@@ -44,10 +44,24 @@ export const JoinScreen: React.FC<JoinScreenProps> = ({
 
     return (
         <div className="card">
-            <h1 className="header-title">CommonScene</h1>
-            <p className="header-subtitle">
-                Join your group session on the TV and find a movie everyone loves.
-            </p>
+            <div style={{ textAlign: 'center', marginBottom: 16 }}>
+                <img
+                    src="/logo.webp"
+                    alt="CommonScene Logo"
+                    style={{
+                        width: 96,
+                        height: 96,
+                        margin: '0 auto 8px auto',
+                        display: 'block',
+                        borderRadius: 20,
+                        boxShadow: '0 8px 24px rgba(99, 102, 241, 0.25)',
+                    }}
+                />
+                <h1 className="header-title" style={{ marginTop: 0 }}>CommonScene</h1>
+                <p className="header-subtitle">
+                    Join your group session on the TV and find a movie everyone loves.
+                </p>
+            </div>
 
             <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: 20 }}>

@@ -119,20 +119,27 @@ export const App: React.FC = () => {
 
     return (
         <main>
-            {participantId && (
+            {step !== 'join' && (
                 <div
                     style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        fontSize: '0.75rem',
-                        color: isConnected ? '#10B981' : '#F59E0B',
+                        fontSize: '0.8rem',
+                        color: isConnected ? '#4ADE80' : '#FBBF24',
                         marginBottom: 12,
                         padding: '0 4px',
                     }}
                 >
-                    <span>● {isConnected ? 'Live Sync' : 'Connecting...'}</span>
-                    <span style={{ color: '#94A3B8' }}>{displayName}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <img
+                            src="/logo.webp"
+                            alt="Logo"
+                            style={{ width: 22, height: 22, borderRadius: 6 }}
+                        />
+                        <span>● {isConnected ? 'Live Sync' : 'Connecting...'}</span>
+                    </div>
+                    <span style={{ color: '#94A3B8', fontWeight: 600 }}>{displayName}</span>
                 </div>
             )}
 
