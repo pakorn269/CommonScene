@@ -133,7 +133,7 @@ export const App: React.FC = () => {
                 >
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <img
-                            src="/logo.webp"
+                            src="/logo.png"
                             alt="Logo"
                             style={{ width: 22, height: 22, borderRadius: 6 }}
                         />

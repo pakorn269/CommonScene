@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./docs/assets/logo.webp" alt="CommonScene Logo" width="240" />
+  <img src="./docs/assets/logo.png" alt="CommonScene Logo" width="240" />
   <h1>CommonScene</h1>
   <p><strong>Fire TV-first group movie recommendation</strong> — turning household movie-night paralysis into instant, fair consensus.</p>
 

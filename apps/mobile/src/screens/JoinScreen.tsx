@@ -46,7 +46,7 @@ export const JoinScreen: React.FC<JoinScreenProps> = ({
         <div className="card">
             <div style={{ textAlign: 'center', marginBottom: 16 }}>
                 <img
-                    src="/logo.webp"
+                    src="/logo.png"
                     alt="CommonScene Logo"
                     style={{
                         width: 96,
