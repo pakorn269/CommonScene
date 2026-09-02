@@ -79,4 +79,4 @@ Derived from the Build, Ship, Shape: Amazon Developer Hackathon requirements.
 - [ ] Push local `main` branch to public GitHub repository (`git push -u origin main`)
 - [ ] Configure GitHub repository "About" section with description, topics, and Apache-2.0 license tag
 - [x] Record and upload 3-minute demo video to YouTube: [https://youtu.be/8_Ttd3JLErE](https://youtu.be/8_Ttd3JLErE)
-- [ ] Complete Devpost submission form using `docs/devpost-submission.md` and `docs/product-feedback.md`
+- [x] Complete Devpost submission form: [https://devpost.com/software/commonscene](https://devpost.com/software/commonscene)

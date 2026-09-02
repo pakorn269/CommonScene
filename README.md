@@ -11,6 +11,7 @@
   [![AI](https://img.shields.io/badge/AI-Amazon%20Bedrock-purple.svg)](https://aws.amazon.com/bedrock/)
   [![IaC](https://img.shields.io/badge/IaC-AWS%20CDK%20v2-yellow.svg)](https://aws.amazon.com/cdk/)
   [![Demo Video](https://img.shields.io/badge/Demo%20Video-YouTube-red.svg?logo=youtube)](https://youtu.be/8_Ttd3JLErE)
+  [![Devpost](https://img.shields.io/badge/Devpost-CommonScene-003E54.svg?logo=devpost)](https://devpost.com/software/commonscene)
 </div>
 
 ---
