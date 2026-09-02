@@ -7,9 +7,16 @@
     "moduleResolution": "node",
     "jsx": "react-native",
     "noEmit": true,
-    "rootDir": "./src",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@commonscene/catalog": ["../../packages/catalog/src/index.ts"],
+      "@commonscene/consensus": ["../../packages/consensus/src/index.ts"],
+      "@commonscene/contracts": ["../../packages/contracts/src/index.ts"],
+      "@commonscene/test-fixtures": ["../../packages/test-fixtures/src/index.ts"],
+      "@commonscene/ui-tokens": ["../../packages/ui-tokens/src/index.ts"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

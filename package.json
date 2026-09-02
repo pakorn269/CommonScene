@@ -20,7 +20,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "build": "npm run build --workspaces --if-present",
+    "build": "tsc --build && npm run build --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present && rimraf node_modules"
   },
   "devDependencies": {
