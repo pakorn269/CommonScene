@@ -1,0 +1,12 @@
+{
+    "files": [],
+    "references": [
+        { "path": "./packages/contracts" },
+        { "path": "./packages/catalog" },
+        { "path": "./packages/consensus" },
+        { "path": "./packages/test-fixtures" },
+        { "path": "./packages/ui-tokens" },
+        { "path": "./services/api" },
+        { "path": "./infrastructure/cdk" }
+    ]
+}
